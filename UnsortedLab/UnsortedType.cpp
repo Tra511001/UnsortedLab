@@ -96,6 +96,12 @@ void UnsortedType::DeleteItem(ItemType item) {// Deleting the first node must be
 		}
 	}
 }
+void UnsortedType::ResetList() {
+	
+	while (startPtr != NULL) {
+		DeleteItem(startPtr->data);
+	}
+}
 /*
 UnsortedType::~UnsortedType() {
 	MakeEmpty();
@@ -105,34 +111,6 @@ UnsortedType::~UnsortedType() {
 	while (temp != NULL) {
 		cout << temp->data << endl;
 		temp = temp->nextNode;
-	}
-}
-
-void UnsortedType::DeleteItem(ItemType item) {
-	if (startPtr !=NULL) {
-		NodeType* temp = startPtr;
-		if ( == startPtr->data) {
-			startPtr = startPtr->nextNode;
-			delete temp;
-			length--;
-		}
-		else {
-			while (temp->nextNode !=NULL && (!(item ==temp->nextNode->data))) {//while the next item is not the target
-				temp = temp->nextNode;
-			}
-			NodeType* target = temp->nextNode;
-			if (target != NULL) {
-				temp->nextNode = target->nextNode;//skipping the node that gets deleted. Temp points to targets next node
-				delete target;
-				length--;
-			}
-		}
-	}
-}
-void UnsortedType::ResetList() {
-	
-	while (startPtr != NULL) {
-		DeleteItem(startPtr->data);
 	}
 }
  */
