@@ -17,10 +17,10 @@ public:
 	int GetLength() const;
 	void PutItem(ItemType item);
 	void DeleteItem(ItemType item);
-	//void ResetList();
+	void ResetList();
 	//void Show();
 	ItemType GetNextItem(ItemType item, bool&);
-	
+	UnsortedType Union(UnsortedType L1, UnsortedType L2);
 	//~UnsortedType();
 
 private:
