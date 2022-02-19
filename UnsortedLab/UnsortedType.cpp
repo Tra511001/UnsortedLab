@@ -50,29 +50,11 @@ void UnsortedType::MakeEmpty(){
 	length = 0;
 }
 ItemType UnsortedType::GetNextItem(ItemType item, bool& found) {
-	NodeType* temp = startPtr;
-	found = false;
-	bool moreToSearch = (temp != NULL);
-	while (moreToSearch && !found) {
-		switch (item.ComparedTo(temp->data))
-		{
-		case LESS:
-		case GREATER: temp = temp->nextNode;
-			moreToSearch = (temp != NULL);
-				break;
-		case EQUAL: found = true;
-			temp = temp->nextNode;
-			moreToSearch = (temp != NULL);
-			if (!moreToSearch) {
-				cout << "ITEM IS NULL";
-				item = temp->data;
-			}
-			else
-				item = temp->data;
-			break;
-		}
-	}
-	return item;
+	if (currentPos == NULL)
+		currentPos = startPtr;
+	else
+		currentPos = currentPos->nextNode;
+	return currentPos->data;
 }
 
 void UnsortedType::DeleteItem(ItemType item) {// Deleting the first node must be a special case
@@ -101,6 +83,26 @@ void UnsortedType::ResetList() {
 	while (startPtr != NULL) {
 		DeleteItem(startPtr->data);
 	}
+}
+UnsortedType UnsortedType::Union(UnsortedType L1, UnsortedType L2) {
+	UnsortedType L3;
+	L1.ResetList();
+	L2.ResetList();
+	//step1 copy list in L3
+	for (int i = 0; i < L1.GetLength(); i++) {
+		L3.InsertItem(L1.GetNextItem());
+	}
+	//step 2 skip elements that are duplicates
+	for (int i = 0; i < L3.GetLength(); i++) {
+		switch(L3.GetNextItem().ComparedTo(L2.GetNextItem())) {
+		case EQUAL: 
+			break;
+		case GREATER:
+		case LESS:
+			L3.InsertItem(L2.GetNextItem());
+			break;
+	}
+	return L3;
 }
 /*
 UnsortedType::~UnsortedType() {
